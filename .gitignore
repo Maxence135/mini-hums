@@ -1,0 +1,10 @@
+.pio/
+.vscode/
+__pycache__/
+*.pyc
+.venv/
+donnees/brut/
+*.bin
+!donnees/echantillons/*.bin
+.DS_Store
+Thumbs.db
