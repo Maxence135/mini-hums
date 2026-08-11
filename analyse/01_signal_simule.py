@@ -20,3 +20,24 @@ plt.plot(t[:400], signal[:400])
 plt.xlabel("Temps (s)"); plt.ylabel("Accélération (g)")
 plt.title("Signal vibratoire simulé — vue temporelle")
 plt.tight_layout(); plt.show()
+
+N = len(signal)
+fenetre = np.hanning(N)  # fenêtre de Hanning
+
+spectre = np.fft.rfft(signal * fenetre)
+freqs = np.fft.rfftfreq(N, 1 / FS)
+
+#Correction de l'amplitude du spectre : x2 (spectre replié) et compensation de la fenêtre
+amplitude = 2 * np.abs(spectre) / np.sum(fenetre)
+
+plt.figure(figsize=(10, 4))
+plt.plot(freqs, amplitude)
+plt.xlim(0, 200)
+plt.xlabel("Fréquence (Hz)"); plt.ylabel("Amplitude (g)")
+plt.title("Spectre — les défauts deviennent lisibles")
+plt.grid(alpha=0.3)
+plt.tight_layout(); plt.show()
+
+for cible in [F_ROT, 2 * F_ROT]:
+    i = np.argmin(np.abs(freqs - cible))
+    print(f"Pic à {freqs[i]:6.1f} Hz → amplitude {amplitude[i]:.3f} g")
