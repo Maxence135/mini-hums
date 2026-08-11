@@ -1,7 +1,6 @@
 # E01 — Validation de la chaîne d'analyse sur signal simulé
 
 **Date** : 11 août 2026
-**Opérateur** : Maxence
 **Phase du projet** : 1 — préparation, avant réception du matériel
 
 ---

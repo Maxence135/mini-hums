@@ -1,7 +1,6 @@
 # E02 — Caractérisation de la fuite spectrale et effet du fenêtrage
 
 **Date** : 11 août 2026
-**Opérateur** : Maxence
 **Phase du projet** : 1 — préparation, avant réception du matériel
 
 ---
