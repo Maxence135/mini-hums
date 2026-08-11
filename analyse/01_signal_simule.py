@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 
-#Partie 1 : génération d'un signal vibratoire simulé
+# Partie 1 : génération d'un signal vibratoire simulé
 
 FS = 3200          # fréquence d'échantillonnage en Hz
 DUREE = 1.0        # durée du signal en secondes (s)
@@ -32,10 +32,10 @@ plt.tight_layout(); plt.show()
 N = len(signal)
 fenetre = np.hanning(N)  # fenêtre de Hanning
 
-spectre = np.fft.rfft(signal * fenetre)
+spectre = np.fft.rfft(signal * fenetre) # le fenêtrage ici n'est techniquement pas necessaire car les conditions sont idéales
 freqs = np.fft.rfftfreq(N, 1 / FS)
 
-#Correction de l'amplitude du spectre : x2 (spectre replié) et compensation de la fenêtre
+# Correction de l'amplitude du spectre : x2 (spectre replié) et compensation de la fenêtre
 amplitude = 2 * np.abs(spectre) / np.sum(fenetre)
 
 plt.figure(figsize=(10, 4))
@@ -52,7 +52,7 @@ for cible in [F_ROT, 2 * F_ROT]:
 
 
 
-#Partie 3 : effet du fenêtrage sur la fuite spectrale
+# Partie 3 : effet du fenêtrage sur la fuite spectrale
 
 F_ROT2 = 25.4     # fréquence non-multiple donc un cas réaliste
 
