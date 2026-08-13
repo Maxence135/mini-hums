@@ -59,23 +59,23 @@ Figure : `docs/figures/E02_fenetrage.png`
 
 **Gain apporté par le fenêtrage.** La fenêtre de Hann annule progressivement le signal à ses deux extrémités, supprimant la discontinuité. Le gain en dynamique atteint un facteur d'environ 200 à 15 Hz du pic, et dépasse 10³ à 35 Hz.
 
-**Coût associé.** Le pic fenêtré est légèrement plus large à sa base : la résolution, c'est-à-dire la capacité à séparer deux composantes de fréquences voisines, est dégradée. En revanche l'exactitude n'est pas affectée — la position et l'amplitude du pic sont inchangées.
+**Coût associé.** Le pic fenêtré est légèrement plus large à sa base : la résolution est dégradée. En revanche l'exactitude n'est pas affectée donc la position et l'amplitude du pic sont inchangées.
 
-**Portée pour le projet.** Le compromis est nettement favorable dans le cadre d'une surveillance vibratoire. Les composantes à distinguer (1×, 2×, 3×) sont espacées de la fréquence de rotation, soit plusieurs dizaines de hertz, ce qui rend la perte de résolution sans conséquence. En revanche, un défaut naissant présente une amplitude de deux à trois ordres de grandeur inférieure à celle du pic principal : sans fenêtrage, la jupe du fondamental (≈ 10⁻² g pour un pic à 0,3 g) le masquerait entièrement. Le fenêtrage conditionne donc directement la capacité de détection précoce, qui est l'objet du système.
+**Portée pour le projet.** Le compromis est nettement favorable dans le cadre d'une surveillance vibratoire. Les composantes à distinguer (1×, 2×, 3×) sont espacées de la fréquence de rotation, soit plusieurs dizaines de hertz, ce qui rend la perte de résolution sans conséquence. En revanche, un défaut naissant présente une amplitude de deux à trois ordres de grandeur inférieure à celle du pic principal : sans fenêtrage, la jupe du fondamental le masquerait entièrement. Le fenêtrage conditionne donc directement la capacité de détection précoce, qui est l'objet du système.
 
 **Erreur d'amplitude résiduelle.** L'amplitude lue au sommet (≈ 0,29 g) est légèrement inférieure à celle injectée (0,30 g). La fréquence tombant entre deux raies, son énergie se répartit sur les raies voisines et aucune ne reçoit la totalité. Ce phénomène, dit de *scalloping*, atteint jusqu'à −1,4 dB dans le cas le plus défavorable avec une fenêtre de Hann.
 
 ## 6. Limites
 
-- Une seule fenêtre a été évaluée. D'autres profils (Hamming, Blackman, flat-top) offrent des compromis différents entre dynamique, largeur de lobe et exactitude d'amplitude ; leur comparaison n'a pas été menée.
-- Le signal est parfaitement stationnaire. Sur une machine réelle, les variations de vitesse pendant l'acquisition élargissent les pics par un mécanisme distinct de la fuite spectrale, non traité ici.
-- Les niveaux relevés dans la section 4 sont des lectures graphiques, non des mesures extraites numériquement.
+- Une seule fenêtre a été évaluée. D'autres profils (Hamming, Blackman, flat-top) offrent des compromis différents entre dynamique, largeur de lobe et exactitude d'amplitude ; ici nous ne les avons pas utilisés.
+- Le signal est parfaitement stationnaire. Ce qui n'est pas le cas sur une machine réelle, dont les variations de vitesse pendant l'acquisition élargissent les pics par un mécanisme distinct de la fuite spectrale.
+- Les niveaux relevés dans la section 4 sont des lectures graphiques, non des mesures extraites numériquement, il y a donc un risque d'incertitude.
 - L'erreur de scalloping n'a pas été mesurée systématiquement en fonction de l'écart à la grille.
 
 ## 7. Conclusion
 
 Hypothèse validée : le fenêtrage de Hann réduit la fuite spectrale de plus de deux ordres de grandeur sans déplacer le pic. Il est retenu comme traitement systématique avant toute FFT dans la suite du projet.
 
-Conséquence pour l'extraction des indicateurs : l'amplitude d'une composante ne sera pas lue au sommet de son pic mais obtenue par sommation de l'énergie sur une bande étroite autour de la fréquence visée, afin de s'affranchir de l'erreur de scalloping.
+Conséquence pour l'extraction des indicateurs : l'amplitude d'une composante ne sera pas lue au sommet de son pic mais obtenue par sommation de l'énergie sur une bande étroite autour de la fréquence visée, pour éviter l'erreur de scalloping.
 
 **Prochaine étape** : caractérisation des indicateurs scalaires (RMS, facteur de crête, kurtosis) et de leur sensibilité respective aux différents types de défaut (E03).

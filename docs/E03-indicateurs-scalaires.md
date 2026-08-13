@@ -75,7 +75,7 @@ L'inspection visuelle de la figure montre que le cas « Balourd » conserve la f
 ## 6. Limites
 
 - Les défauts sont simulés selon des modèles simplifiés. L'amplitude, la constante d'amortissement et la fréquence de résonance retenues pour les chocs sont plausibles mais non calibrées sur une mesure réelle.
-- Un seul niveau de sévérité a été évalué par famille de défaut. La progressivité de la réponse des indicateurs en fonction de la gravité n'est pas caractérisée.
+- Un seul niveau de gravité a été testé par type de défaut. On ne sait donc pas comment les indicateurs évoluent quand le défaut s'aggrave.
 - Les signaux sont parfaitement stationnaires, sans variation de vitesse ni de température. Sur banc réel, ces facteurs introduiront une dispersion des indicateurs en l'absence de tout défaut, dispersion qu'il faudra quantifier pour fixer des seuils.
 - Les deux défauts ont été testés séparément. Leur combinaison, plus représentative d'une machine dégradée, n'a pas été étudiée.
 - Aucun essai de répétabilité n'a été mené : un seul tirage de bruit a été utilisé.
@@ -86,4 +86,4 @@ Hypothèse validée. Le RMS répond au balourd et non aux chocs ; le facteur de 
 
 Décision retenue pour la suite du projet : chaque acquisition sera réduite à un vecteur de descripteurs comprenant les indicateurs temporels caractérisés ici (RMS, valeur crête, facteur de crête, kurtosis, skewness) complétés par les amplitudes des composantes 1× et 2× extraites du spectre. Ce vecteur constituera l'entrée commune des trois niveaux de détection prévus : seuillage simple, distance de Mahalanobis, puis autoencodeur.
 
-**Prochaine étape** : à réception du matériel, mise en œuvre de la chaîne d'acquisition ESP32 et vérification de la régularité effective de l'échantillonnage (E04).
+**Prochaine étape** : vérification de la méthode sur un essai de dégradation réel à partir d'un jeu de données public (E04).
