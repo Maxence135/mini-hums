@@ -95,3 +95,22 @@ ax2.grid(alpha=0.3)
 
 plt.tight_layout()
 plt.show()
+
+
+# Bloc 5 : detection de la premiere sortie de referance
+
+N_REF = 500 # le nombre de fichier de la periode de reference (600 fichiers = 100 heures)
+K = 3       # 3 ecarts types
+
+def premiere_sortie(serie, n_ref, k, n_consecutifs=6):
+    ref = serie[:n_ref]
+    seuil = np.mean(ref) + k * np.std(ref)
+    depasse = serie > seuil
+    for i in range(len(depasse) - n_consecutifs):
+        if depasse[i:i+n_consecutifs].all():
+            return i
+    return None
+
+for nom, colonne in [("RMS", 0), ("Kurtosis", 1)]:
+    idx = premiere_sortie(resultat[:, colonne], N_REF, K)
+    print(f"{nom} : depassement au fichier {idx}, soit {idx*10/60:.1f} h")
