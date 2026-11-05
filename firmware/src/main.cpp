@@ -37,24 +37,44 @@ void lireXYZ(int16_t &x, int16_t &y, int16_t &z) {
   z = (int16_t)(b[5] << 8 | b[4]);
 }
 
+const int N = 1000;
+unsigned long t[N];
+
 void setup() {
   Serial.begin(115200);
   delay(1000);
   pinMode(PIN_CS, OUTPUT);
   digitalWrite(PIN_CS, HIGH);
-  SPI.begin(18, 19, 23, PIN_CS);
+  SPI.begin(18, 19, 23, PIN_CS); 
 
   Serial.print("DEVID=0x");     Serial.println(lireRegistre(0x00), HEX);
   ecrireRegistre(0x31, 0x08);
   ecrireRegistre(0x2D, 0x08);
   Serial.print("POWER_CTL=0x"); Serial.println(lireRegistre(0x2D), HEX);
+
+  ecrireRegistre(0x2C, 0x0F); // Le BWRATE est de 3200Hz
 }
 
 void loop() {
   int16_t x, y, z;
-  lireXYZ(x, y, z);
-  Serial.print("X=");    Serial.print(x * 0.0039, 3);
-  Serial.print("  Y=");  Serial.print(y * 0.0039, 3);
-  Serial.print("  Z=");  Serial.println(z * 0.0039, 3);
-  delay(500);
+  for (int i = 0; i < N; i++) {
+    lireXYZ(x, y, z);
+    t[i]= micros();
+  }
+  
+  unsigned long somme = 0;
+  unsigned long min = 1000000;
+  unsigned long max = 0;
+  for (int i = 1; i < N; i++) {
+    unsigned long ecart = t[i] - t[i - 1];
+    somme += ecart;
+    if (ecart < min) min = ecart;
+    if (ecart > max) max = ecart;
+  }
+
+  Serial.print("min="); Serial.print(min);
+  Serial.print(" max="); Serial.print(max);
+  Serial.print(" moy="); Serial.println(somme / (N - 1));
+
+  delay(3000);
 }
