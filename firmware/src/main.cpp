@@ -57,11 +57,17 @@ void setup() {
 
 void loop() {
   int16_t x, y, z;
+
+  unsigned long t0 = micros() + 100;
   for (int i = 0; i < N; i++) {
+    unsigned long cible = t0 + (i * 625) / 2;
+    while (micros() < cible) {
+    }
+    t[i] = micros();
     lireXYZ(x, y, z);
-    t[i]= micros();
+    
   }
-  
+
   unsigned long somme = 0;
   unsigned long min = 1000000;
   unsigned long max = 0;
@@ -74,6 +80,7 @@ void loop() {
 
   Serial.print("min="); Serial.print(min);
   Serial.print(" max="); Serial.print(max);
+  Serial.print(" premier="); Serial.print(t[1] - t[0]);
   Serial.print(" moy="); Serial.println(somme / (N - 1));
 
   delay(3000);
